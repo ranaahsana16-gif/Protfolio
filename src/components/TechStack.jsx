@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { Physics, RigidBody, BallCollider, CylinderCollider } from '@react-three/rapier'
 import { Environment } from '@react-three/drei'
-import { EffectComposer, N8AO } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import Marquee from 'react-fast-marquee'
 import '../styles/TechStack.css'
@@ -202,9 +201,6 @@ export default function TechStack({ isDesktop }) {
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
-        <EffectComposer enableNormalPass={false}>
-          <N8AO color="#0f002c" aoRadius={2} intensity={1.15} />
-        </EffectComposer>
       </Canvas>
     </div>
   )
