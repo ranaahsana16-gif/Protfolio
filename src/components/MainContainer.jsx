@@ -59,20 +59,7 @@ const MainContainer = () => {
         }
       })
 
-      scrollTimeline2.to('.about-section', { y: '30%', duration: 6 }, 0)
-        .to('.about-section', { opacity: 0, delay: 3, duration: 2 }, 0)
-
-      const scrollTimeline3 = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.whatIDO',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: true,
-          invalidateOnRefresh: true
-        }
-      })
-
-      scrollTimeline3.fromTo('.whatIDO', { y: 0 }, { y: '15%', duration: 2 }, 0)
+      scrollTimeline2.to('.about-section', { opacity: 0, duration: 2 }, 0)
     })
 
     // Scroll reveal animations for text elements (min-width: 900px)
