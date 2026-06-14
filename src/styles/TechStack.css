@@ -28,3 +28,64 @@
     font-size: 40px;
   }
 }
+
+/* Mobile Tech Stack Styling */
+.techstack-mobile {
+  width: 100%;
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.techstack-mobile h2 {
+  font-size: 36px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  color: #eae5ec;
+}
+
+.tech-marquee-container {
+  width: 100%;
+  padding: 15px 0;
+  overflow: hidden;
+}
+
+.tech-logo-card {
+  width: 100px;
+  height: 105px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgba(18, 14, 22, 0.4);
+  border: 1px solid rgba(194, 164, 255, 0.12);
+  border-radius: 16px;
+  margin: 0 12px;
+  padding: 10px;
+  box-sizing: border-box;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+}
+
+.tech-logo-card img {
+  max-width: 50px;
+  max-height: 50px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(194, 164, 255, 0.2));
+  margin-bottom: 6px;
+}
+
+.tech-logo-card span {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(234, 229, 236, 0.7);
+  letter-spacing: 0.5px;
+}
+

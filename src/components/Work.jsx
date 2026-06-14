@@ -27,38 +27,38 @@ const Work = () => {
   const sectionRef = useRef(null)
 
   useEffect(() => {
-    if (window.innerWidth < 1025) return
+    const mm = gsap.matchMedia()
 
-    const section = sectionRef.current
-    if (!section) return
+    mm.add('(min-width: 1025px)', () => {
+      const section = sectionRef.current
+      if (!section) return
 
-    const workBoxes = section.querySelectorAll('.work-box')
-    const workFlex = section.querySelector('.work-flex')
-    if (!workBoxes.length || !workFlex) return
+      const workBoxes = section.querySelectorAll('.work-box')
+      const workFlex = section.querySelector('.work-flex')
+      if (!workBoxes.length || !workFlex) return
 
-    const containerLeft = section.querySelector('.work-container').getBoundingClientRect().left
-    const boxRect = workBoxes[0].getBoundingClientRect()
-    const parentWidth = workBoxes[0].parentElement.getBoundingClientRect().width
-    const padding = parseInt(window.getComputedStyle(workBoxes[0]).padding) / 2
-    const scrollDistance = boxRect.width * workBoxes.length - (containerLeft + parentWidth) + padding
+      const containerLeft = section.querySelector('.work-container').getBoundingClientRect().left
+      const boxRect = workBoxes[0].getBoundingClientRect()
+      const parentWidth = workBoxes[0].parentElement.getBoundingClientRect().width
+      const padding = parseInt(window.getComputedStyle(workBoxes[0]).padding) / 2
+      const scrollDistance = boxRect.width * workBoxes.length - (containerLeft + parentWidth) + padding
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.work-section',
-        start: 'top top',
-        end: `+=${scrollDistance}`,
-        scrub: true,
-        pin: true,
-        id: 'work',
-      },
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.work-section',
+          start: 'top top',
+          end: `+=${scrollDistance}`,
+          scrub: true,
+          pin: true,
+          id: 'work',
+        },
+      })
+
+      tl.to('.work-flex', { x: -scrollDistance, ease: 'none' })
     })
 
-    tl.to('.work-flex', { x: -scrollDistance, ease: 'none' })
-
     return () => {
-      tl.kill()
-      const st = ScrollTrigger.getById('work')
-      if (st) st.kill()
+      mm.revert()
     }
   }, [])
 

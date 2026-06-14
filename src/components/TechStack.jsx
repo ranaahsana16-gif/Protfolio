@@ -4,7 +4,11 @@ import { Physics, RigidBody, BallCollider, CylinderCollider } from '@react-three
 import { Environment } from '@react-three/drei'
 import { EffectComposer, N8AO } from '@react-three/postprocessing'
 import * as THREE from 'three'
+import Marquee from 'react-fast-marquee'
 import '../styles/TechStack.css'
+
+const MarqueeComponent = Marquee.default || Marquee
+
 
 const BASE = import.meta.env.BASE_URL
 
@@ -82,10 +86,12 @@ function Pointer({ isActive, vec = new THREE.Vector3() }) {
   )
 }
 
-export default function TechStack() {
+export default function TechStack({ isDesktop }) {
   const [isActive, setIsActive] = useState(false)
 
   useEffect(() => {
+    if (!isDesktop) return
+
     const handleScroll = () => {
       const scrollY = window.scrollY || document.documentElement.scrollTop
       const workEl = document.getElementById("work")
@@ -107,10 +113,11 @@ export default function TechStack() {
     window.addEventListener("scroll", handleScroll)
     handleScroll() // run initial check
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+  }, [isDesktop])
 
   // Preload and memoize physical materials mapping tech logos
   const materials = useMemo(() => {
+    if (!isDesktop) return []
     const loader = new THREE.TextureLoader()
     return imagePaths.map(p => {
       const tex = loader.load(`${BASE}${p}`)
@@ -124,15 +131,38 @@ export default function TechStack() {
         clearcoat: 0.1
       })
     })
-  }, [])
+  }, [isDesktop])
 
   const sphereData = useMemo(() => {
+    if (!isDesktop) return []
     const scales = [0.7, 1, 0.8, 1, 1]
     return [...Array(15)].map((_, idx) => ({
       scale: scales[Math.floor(Math.random() * scales.length)],
       materialIdx: idx % materials.length
     }))
-  }, [materials.length])
+  }, [materials.length, isDesktop])
+
+  if (!isDesktop) {
+    return (
+      <div className="techstack-mobile" id="techstack">
+        <h2>My Techstack</h2>
+        <div className="tech-marquee-container">
+          <MarqueeComponent speed={35} gradient={false} pauseOnHover={true}>
+            {imagePaths.map((p, idx) => {
+              const name = p.split('/').pop().split('.')[0].replace('2', '');
+              const displayName = name === 'mongo' ? 'MongoDB' : name.charAt(0).toUpperCase() + name.slice(1);
+              return (
+                <div key={idx} className="tech-logo-card">
+                  <img src={`${BASE}${p}`} alt={displayName} />
+                  <span>{displayName}</span>
+                </div>
+              );
+            })}
+          </MarqueeComponent>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="techstack" id="techstack">

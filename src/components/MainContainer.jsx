@@ -21,44 +21,115 @@ const MainContainer = () => {
   const techStackRef = useRef(null)
 
   useEffect(() => {
-    if (!isDesktop) return
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setLoadTechStack(true)
-          observer.disconnect()
-        }
-      },
-      { rootMargin: '400px' }
-    )
-
-    const el = techStackRef.current
-    if (el) {
-      observer.observe(el)
-    }
-
-    return () => {
-      observer.disconnect()
-    }
-  }, [isDesktop])
-
-  useEffect(() => {
     const handleResize = () => {
       setIsDesktop(window.innerWidth > 1024)
     }
 
-    // Initialize GSAP animations
-    initAnimations()
+    // Preload tech stack in the background 500ms after mount to ensure smooth initial load
+    const timer = setTimeout(() => {
+      setLoadTechStack(true)
+    }, 500)
 
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
+      clearTimeout(timer)
     }
-  }, [isDesktop])
+  }, [])
 
   useEffect(() => {
-    // Animate career timeline on scroll
+    const mm = gsap.matchMedia()
+
+    // Desktop only scroll animations
+    mm.add('(min-width: 1025px)', () => {
+      const scrollTimeline1 = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.landing-section',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+          invalidateOnRefresh: true
+        }
+      })
+
+      scrollTimeline1.to('.landing-container', { opacity: 0, duration: 0.4 }, 0)
+        .to('.landing-container', { y: '40%', duration: 0.8 }, 0)
+        .fromTo(['.about-me', '.about-left'], { y: '100px', opacity: 0 }, { y: '0%', opacity: 1, duration: 0.8, ease: 'power2.out' }, 0)
+
+      const scrollTimeline2 = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.about-section',
+          start: 'center 55%',
+          end: 'bottom top',
+          scrub: true,
+          invalidateOnRefresh: true
+        }
+      })
+
+      scrollTimeline2.to('.about-section', { y: '30%', duration: 6 }, 0)
+        .to('.about-section', { opacity: 0, delay: 3, duration: 2 }, 0)
+        .fromTo('.what-box-in', { display: 'none' }, { display: 'flex', duration: 0.1, delay: 6 }, 0)
+
+      const scrollTimeline3 = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.whatIDO',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+          invalidateOnRefresh: true
+        }
+      })
+
+      scrollTimeline3.fromTo('.whatIDO', { y: 0 }, { y: '15%', duration: 2 }, 0)
+    })
+
+    // Scroll reveal animations for text elements (min-width: 900px)
+    mm.add('(min-width: 900px)', () => {
+      ScrollTrigger.config({ ignoreMobileResize: true })
+
+      const paras = document.querySelectorAll('.para')
+      const titles = document.querySelectorAll('.title')
+      const startPos = window.innerWidth <= 1024 ? 'top 60%' : '20% 60%'
+
+      paras.forEach((para) => {
+        para.classList.add('visible')
+        gsap.fromTo(
+          para,
+          { autoAlpha: 0, y: 50 },
+          {
+            autoAlpha: 1,
+            scrollTrigger: {
+              trigger: para.parentElement?.parentElement,
+              toggleActions: 'play none none none', // Play once when scrolling down; never hide on scroll up!
+              start: startPos,
+            },
+            duration: 1,
+            ease: 'power3.out',
+            y: 0,
+          }
+        )
+      })
+
+      titles.forEach((title) => {
+        gsap.fromTo(
+          title,
+          { autoAlpha: 0, y: 50 },
+          {
+            autoAlpha: 1,
+            scrollTrigger: {
+              trigger: title.parentElement?.parentElement,
+              toggleActions: 'play none none none', // Play once when scrolling down; never hide on scroll up!
+              start: startPos,
+            },
+            duration: 0.8,
+            ease: 'power2.inOut',
+            y: 0,
+          }
+        )
+      })
+    })
+
+    // Timeline line growth on scroll (all screen widths)
     ScrollTrigger.create({
       trigger: '.career-section',
       start: 'top 80%',
@@ -71,7 +142,7 @@ const MainContainer = () => {
       },
     })
 
-    // Nav fade on scroll
+    // Navbar background fade on scroll (all screen widths)
     ScrollTrigger.create({
       trigger: '.landing-section',
       start: 'top top',
@@ -85,63 +156,9 @@ const MainContainer = () => {
     })
 
     return () => {
-      ScrollTrigger.getAll().forEach((st) => st.kill())
+      mm.revert() // Destroys all triggers and resets elements to pre-animation styles automatically!
     }
   }, [])
-
-  useEffect(() => {
-    if (!isDesktop) return
-
-    // Section scroll transitions
-    const scrollTimeline1 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.landing-section',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-        invalidateOnRefresh: true
-      }
-    })
-
-    scrollTimeline1.to('.landing-container', { opacity: 0, duration: 0.4 }, 0)
-      .to('.landing-container', { y: '40%', duration: 0.8 }, 0)
-      .fromTo('.about-me', { y: '-50%' }, { y: '0%' }, 0)
-
-    const scrollTimeline2 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.about-section',
-        start: 'center 55%',
-        end: 'bottom top',
-        scrub: true,
-        invalidateOnRefresh: true
-      }
-    })
-
-    scrollTimeline2.to('.about-section', { y: '30%', duration: 6 }, 0)
-      .to('.about-section', { opacity: 0, delay: 3, duration: 2 }, 0)
-      .fromTo('.what-box-in', { display: 'none' }, { display: 'flex', duration: 0.1, delay: 6 }, 0)
-
-    const scrollTimeline3 = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.whatIDO',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-        invalidateOnRefresh: true
-      }
-    })
-
-    scrollTimeline3.fromTo('.whatIDO', { y: 0 }, { y: '15%', duration: 2 }, 0)
-
-    return () => {
-      scrollTimeline1.scrollTrigger?.kill()
-      scrollTimeline1.kill()
-      scrollTimeline2.scrollTrigger?.kill()
-      scrollTimeline2.kill()
-      scrollTimeline3.scrollTrigger?.kill()
-      scrollTimeline3.kill()
-    }
-  }, [isDesktop])
 
   return (
     <div className="container-main">
@@ -157,9 +174,9 @@ const MainContainer = () => {
             <Career />
             <Work />
             <div ref={techStackRef}>
-              {isDesktop && loadTechStack && (
+              {loadTechStack && (
                 <Suspense fallback={<div>Loading....</div>}>
-                  <TechStack />
+                  <TechStack isDesktop={isDesktop} />
                 </Suspense>
               )}
             </div>
@@ -169,54 +186,6 @@ const MainContainer = () => {
       </div>
     </div>
   )
-}
-
-function initAnimations() {
-  if (window.innerWidth < 900) return
-
-  ScrollTrigger.config({ ignoreMobileResize: true })
-
-  const paras = document.querySelectorAll('.para')
-  const titles = document.querySelectorAll('.title')
-
-  const startPos = window.innerWidth <= 1024 ? 'top 60%' : '20% 60%'
-
-  paras.forEach((para) => {
-    para.classList.add('visible')
-    gsap.fromTo(
-      para,
-      { autoAlpha: 0, y: 50 },
-      {
-        autoAlpha: 1,
-        scrollTrigger: {
-          trigger: para.parentElement?.parentElement,
-          toggleActions: 'play pause resume reverse',
-          start: startPos,
-        },
-        duration: 1,
-        ease: 'power3.out',
-        y: 0,
-      }
-    )
-  })
-
-  titles.forEach((title) => {
-    gsap.fromTo(
-      title,
-      { autoAlpha: 0, y: 50 },
-      {
-        autoAlpha: 1,
-        scrollTrigger: {
-          trigger: title.parentElement?.parentElement,
-          toggleActions: 'play pause resume reverse',
-          start: startPos,
-        },
-        duration: 0.8,
-        ease: 'power2.inOut',
-        y: 0,
-      }
-    )
-  })
 }
 
 export default MainContainer
