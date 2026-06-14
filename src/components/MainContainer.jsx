@@ -17,7 +17,7 @@ const TechStack = lazy(() => import('./TechStack'))
 
 const MainContainer = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024)
-  const [loadTechStack, setLoadTechStack] = useState(false)
+  const [loadTechStack, setLoadTechStack] = useState(true)
   const techStackRef = useRef(null)
 
   useEffect(() => {
@@ -25,15 +25,9 @@ const MainContainer = () => {
       setIsDesktop(window.innerWidth > 1024)
     }
 
-    // Preload tech stack in the background 500ms after mount to ensure smooth initial load
-    const timer = setTimeout(() => {
-      setLoadTechStack(true)
-    }, 500)
-
     window.addEventListener('resize', handleResize)
     return () => {
       window.removeEventListener('resize', handleResize)
-      clearTimeout(timer)
     }
   }, [])
 
@@ -54,7 +48,6 @@ const MainContainer = () => {
 
       scrollTimeline1.to('.landing-container', { opacity: 0, duration: 0.4 }, 0)
         .to('.landing-container', { y: '40%', duration: 0.8 }, 0)
-        .fromTo(['.about-me', '.about-left'], { y: '100px', opacity: 0 }, { y: '0%', opacity: 1, duration: 0.8, ease: 'power2.out' }, 0)
 
       const scrollTimeline2 = gsap.timeline({
         scrollTrigger: {
@@ -68,7 +61,6 @@ const MainContainer = () => {
 
       scrollTimeline2.to('.about-section', { y: '30%', duration: 6 }, 0)
         .to('.about-section', { opacity: 0, delay: 3, duration: 2 }, 0)
-        .fromTo('.what-box-in', { display: 'none' }, { display: 'flex', duration: 0.1, delay: 6 }, 0)
 
       const scrollTimeline3 = gsap.timeline({
         scrollTrigger: {

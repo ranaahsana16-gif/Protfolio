@@ -27,38 +27,39 @@ const Work = () => {
   const sectionRef = useRef(null)
 
   useEffect(() => {
-    const mm = gsap.matchMedia()
+    const section = sectionRef.current
+    if (!section) return
 
-    mm.add('(min-width: 1025px)', () => {
-      const section = sectionRef.current
-      if (!section) return
+    const workBoxes = section.querySelectorAll('.work-box')
+    const workFlex = section.querySelector('.work-flex')
+    if (!workBoxes.length || !workFlex) return
 
-      const workBoxes = section.querySelectorAll('.work-box')
-      const workFlex = section.querySelector('.work-flex')
-      if (!workBoxes.length || !workFlex) return
-
+    const getScrollDistance = () => {
       const containerLeft = section.querySelector('.work-container').getBoundingClientRect().left
       const boxRect = workBoxes[0].getBoundingClientRect()
       const parentWidth = workBoxes[0].parentElement.getBoundingClientRect().width
       const padding = parseInt(window.getComputedStyle(workBoxes[0]).padding) / 2
-      const scrollDistance = boxRect.width * workBoxes.length - (containerLeft + parentWidth) + padding
+      return boxRect.width * workBoxes.length - (containerLeft + parentWidth) + padding
+    }
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: '.work-section',
-          start: 'top top',
-          end: `+=${scrollDistance}`,
-          scrub: true,
-          pin: true,
-          id: 'work',
-        },
-      })
-
-      tl.to('.work-flex', { x: -scrollDistance, ease: 'none' })
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: '.work-section',
+        start: 'top top',
+        end: () => `+=${getScrollDistance()}`,
+        scrub: true,
+        pin: true,
+        id: 'work',
+        invalidateOnRefresh: true,
+      },
     })
 
+    tl.to('.work-flex', { x: () => -getScrollDistance(), ease: 'none' })
+
     return () => {
-      mm.revert()
+      tl.kill()
+      const st = ScrollTrigger.getById('work')
+      if (st) st.kill()
     }
   }, [])
 

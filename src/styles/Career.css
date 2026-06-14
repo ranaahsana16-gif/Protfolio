@@ -7,8 +7,8 @@
   position: relative;
   opacity: 1;
   height: auto;
-  margin: auto auto 250px;
-  padding: 120px 0;
+  margin: auto auto 80px;
+  padding: 80px 0;
 }
 
 .career-section h2 {
@@ -21,8 +21,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  margin-top: 50px;
-  margin-bottom: 90px;
+  margin-top: 20px;
+  margin-bottom: 50px;
 }
 
 .career-section h2 > span {
@@ -121,11 +121,11 @@
 }
 
 @media only screen and (max-width: 1025px) {
-  .career-section { padding: 220px 0 70px; margin-top: -200px; margin-bottom: 0; }
+  .career-section { padding: 80px 0 40px; margin-top: 0; margin-bottom: 0; }
 }
 
 @media only screen and (max-width: 900px) {
-  .career-info-box { flex-direction: column; gap: 10px; margin-bottom: 70px; }
+  .career-info-box { flex-direction: column; gap: 10px; margin-bottom: 40px; }
   .career-info-in, .career-info-box p { width: 100%; padding-left: 10%; box-sizing: border-box; }
   .career-timeline { left: 0%; }
   .career-container { width: calc(100% - 25px); }
@@ -133,9 +133,9 @@
 
 @media only screen and (max-width: 600px) {
   .career-info { margin: 0; }
-  .career-section h2 { width: 100%; font-size: 45px; line-height: 45px; margin-top: 0; }
+  .career-section h2 { width: 100%; font-size: 45px; line-height: 45px; margin-top: 0; margin-bottom: 30px; }
   .career-info-in { gap: 0px; }
   .career-info h3 { font-size: 33px; }
   .career-info-in, .career-info-box p { padding-left: 5%; }
-  .career-section { padding-top: 90px; margin-top: -70px; align-items: start; place-items: inherit; justify-content: left; }
+  .career-section { padding: 50px 0 30px; margin-top: 0; align-items: start; place-items: inherit; justify-content: left; }
 }
