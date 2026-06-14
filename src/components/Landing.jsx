@@ -1,8 +1,10 @@
+import DotBackground from './DotBackground'
 import '../styles/Landing.css'
 
 const Landing = () => {
   return (
     <div className="landing-section" id="landingDiv">
+      <DotBackground />
       <div className="landing-circle-center" />
       <div className="landing-container">
         <div className="landing-intro">

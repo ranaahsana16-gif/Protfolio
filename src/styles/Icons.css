@@ -14,67 +14,82 @@
   bottom: 20px;
   display: none;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   z-index: 999;
   padding: 10px;
 }
 
-.social-icons:hover {
-  transition: 0.3s;
-  color: var(--backgroundColor);
-}
-
-.social-icons a:hover {
-  color: var(--backgroundColor);
-}
-
 .social-icons span {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   position: relative;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-icons span:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 .social-icons a {
-  --siLeft: 50%;
-  --siTop: 50%;
   position: absolute;
-  left: var(--siLeft, 50%);
-  top: var(--siTop, 50%);
+  left: 50%;
+  top: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  font-size: 23px;
-  will-change: left, top;
-  transition: transform 0.3s ease-out;
+  font-size: 22px;
+  color: #eae5ec;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.social-icons span:hover a {
+  color: var(--accentColor);
+  transform: translate(-50%, -50%) scale(1.15);
 }
 
 .resume-button {
   position: absolute;
   z-index: 99;
   display: flex;
-  gap: 5px;
-  bottom: 40px;
-  right: 0;
+  gap: 8px;
+  bottom: 25px;
+  right: 15px;
   width: auto;
   text-wrap: nowrap;
-  letter-spacing: 4px;
-  font-size: 15px;
+  letter-spacing: 2px;
+  font-size: 13px;
   line-height: 15px;
-  font-weight: 600;
-  color: #5e5e5e;
+  font-weight: 500;
+  color: #fff;
   cursor: pointer;
-  transition: 0.5s;
-  transform-origin: left bottom;
-  transform: translate(100%) rotate(-90deg);
+  transition: 0.3s;
+  background: rgba(194, 164, 255, 0.12);
+  border: 1px solid rgba(194, 164, 255, 0.25);
+  padding: 8px 16px;
+  border-radius: 50px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .resume-button:hover {
-  color: #fff;
+  background: rgba(194, 164, 255, 0.22);
+  border-color: rgba(194, 164, 255, 0.45);
+  box-shadow: 0 4px 20px rgba(194, 164, 255, 0.25);
 }
 
-div.resume-button span {
+.resume-button span {
   color: #fff;
-  font-size: 17px;
+  font-size: 16px;
   margin-top: -1px;
   display: flex;
   align-items: center;
@@ -92,11 +107,28 @@ div.resume-button span {
 
 @media only screen and (min-width: 768px) {
   .resume-button {
-    transform: none;
+    bottom: 40px;
+    right: 0;
     font-size: 20px;
     line-height: 20px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    color: #5e5e5e;
+    letter-spacing: 4px;
+    font-weight: 600;
+    border-radius: 0;
   }
-  div.resume-button span {
+  .resume-button:hover {
+    color: #fff;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+  .resume-button span {
     font-size: 23px;
     margin-top: -1.5px;
   }

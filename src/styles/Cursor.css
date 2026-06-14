@@ -31,4 +31,13 @@
   .cursor-disable {
     --size: 0px;
   }
+  .cursor-hover {
+    width: 65px !important;
+    height: 65px !important;
+    top: -32.5px !important;
+    left: -32.5px !important;
+    background-color: rgba(194, 164, 255, 0.05) !important;
+    border-color: var(--accentColor) !important;
+    box-shadow: 0 0 25px rgba(194, 164, 255, 0.3) !important;
+  }
 }

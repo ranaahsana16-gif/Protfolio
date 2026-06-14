@@ -10,6 +10,7 @@ import Work from './Work'
 import Contact from './Contact'
 import SocialIcons from './SocialIcons'
 import CustomCursor from './CustomCursor'
+import { useLoading } from './LoadingProvider'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -19,6 +20,35 @@ const MainContainer = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth > 1024)
   const [loadTechStack, setLoadTechStack] = useState(true)
   const techStackRef = useRef(null)
+  const { isLoading } = useLoading()
+
+  useEffect(() => {
+    if (isLoading) return
+
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out', duration: 1.2 } })
+
+    // Set initial hidden states for premium liquid-reveal
+    gsap.set('.header', { y: -30, scaleX: 0.82, opacity: 0 })
+    gsap.set('.social-icons span', { x: -40, opacity: 0 })
+    gsap.set('.resume-button', { x: 40, opacity: 0 })
+    gsap.set('.landing-intro h2', { y: 20, opacity: 0, letterSpacing: '6px' })
+    gsap.set('.landing-intro h1', { y: 60, scale: 0.92, opacity: 0, letterSpacing: '6px' })
+    gsap.set('.landing-info h3', { y: 20, opacity: 0, letterSpacing: '6px' })
+    gsap.set('.landing-title-text', { y: 40, scale: 0.95, opacity: 0, letterSpacing: '8px' })
+    gsap.set('.landing-circle-center', { scale: 0.3, opacity: 0 })
+    gsap.set('.dot-background-container', { opacity: 0 })
+
+    // Animate elements sequentially
+    tl.to('.landing-circle-center', { scale: 1, opacity: 1, duration: 2.2, ease: 'power2.out' }, 0)
+      .to('.dot-background-container', { opacity: 0.65, duration: 2.5, ease: 'power2.out' }, 0.1)
+      .to('.header', { y: 0, scaleX: 1, opacity: 1, duration: 1.4, ease: 'power4.out' }, 0.15)
+      .to('.landing-intro h2', { y: 0, opacity: 1, letterSpacing: '3px', duration: 1.2 }, 0.25)
+      .to('.landing-intro h1', { y: 0, scale: 1, opacity: 1, letterSpacing: '2px', duration: 1.5 }, 0.35)
+      .to('.landing-info h3', { y: 0, opacity: 0.8, letterSpacing: '3px', duration: 1.2 }, 0.45)
+      .to('.landing-title-text', { y: 0, scale: 1, opacity: 1, letterSpacing: '4px', duration: 1.6 }, 0.55)
+      .to('.social-icons span', { x: 0, opacity: 1, stagger: 0.08, duration: 1.1 }, 0.65)
+      .to('.resume-button', { x: 0, opacity: 1, duration: 1.2 }, 0.75)
+  }, [isLoading])
 
   useEffect(() => {
     const handleResize = () => {

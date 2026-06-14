@@ -91,6 +91,7 @@ const LoadingScreen = ({ percent }) => {
           onClick={handleClick}
         >
           <div className="loading-hover" />
+          <div className="loading-hud-ring" />
           <div className={`loading-button ${complete ? 'loading-complete' : ''}`}>
             <div className="loading-container">
               <div className="loading-content">

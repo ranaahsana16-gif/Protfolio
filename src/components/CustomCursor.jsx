@@ -31,23 +31,25 @@ const CustomCursor = () => {
     }
     animFrame = requestAnimationFrame(animate)
 
-    // Handle data-cursor attributes using event delegation
+    // Handle data-cursor attributes and standard links/buttons using event delegation
     const handleMouseOver = (e) => {
-      const target = e.target.closest('[data-cursor]')
+      const target = e.target.closest('[data-cursor], a, button, .resume-button')
       if (target) {
         const type = target.getAttribute('data-cursor')
         if (type === 'disable') {
           cursor.classList.add('cursor-disable')
         } else if (type === 'icons') {
           cursor.classList.add('cursor-icons')
+        } else {
+          cursor.classList.add('cursor-hover')
         }
       }
     }
 
     const handleMouseOut = (e) => {
-      const target = e.target.closest('[data-cursor]')
+      const target = e.target.closest('[data-cursor], a, button, .resume-button')
       if (target) {
-        cursor.classList.remove('cursor-disable', 'cursor-icons')
+        cursor.classList.remove('cursor-disable', 'cursor-icons', 'cursor-hover')
       }
     }
 

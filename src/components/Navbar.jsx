@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import '../styles/Navbar.css'
 
 const HoverLink = ({ text }) => (
@@ -9,6 +10,20 @@ const HoverLink = ({ text }) => (
 )
 
 const Navbar = () => {
+  const [isScrolled, setIsScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const handleNavClick = (e) => {
     e.preventDefault()
     const href = e.currentTarget.getAttribute('data-href')
@@ -20,7 +35,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="header">
+      <div className={`header ${isScrolled ? 'is-scrolled' : ''}`}>
         <a href="/#" className="navbar-title" data-cursor="disable">
           Rana Ahsan
         </a>
@@ -54,3 +69,4 @@ const Navbar = () => {
 
 export default Navbar
 export { HoverLink }
+

@@ -2,7 +2,7 @@
   position: fixed;
   width: 100vw;
   height: var(--vh);
-  background-color: #eae5ec;
+  background-color: #0b080c;
   z-index: 999999999;
   display: flex;
   place-items: center;
@@ -24,27 +24,31 @@
 .loading-button {
   padding: 20px 50px;
   border-radius: 100px;
-  background-color: #000;
+  background-color: #0f0b14;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   overflow: hidden;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: 600;
   position: relative;
   z-index: 9;
+  color: #eae5ec;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .loading-button::before {
   content: '';
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, 0.15);
   top: var(--mouse-y);
   left: var(--mouse-x);
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   position: absolute;
   z-index: 99;
-  filter: blur(60px);
+  filter: blur(40px);
   opacity: 0;
   transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
 }
 
 .loading-button:hover::before {
@@ -56,17 +60,20 @@
 }
 
 .loading-wrap {
-  --Lsize: 145px;
-  padding: 6px;
+  --Lsize: 155px;
+  padding: 4px;
   position: relative;
   min-width: 0px;
   min-height: 0px;
   border-radius: 100px;
-  background-color: #000;
+  background: linear-gradient(135deg, rgba(194, 164, 255, 0.15), rgba(84, 0, 255, 0.05));
+  border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
-  transition: 0.8s ease-in-out;
+  transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   transition-delay: 0.2s;
-  box-shadow: 0 15px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(194, 164, 255, 0.04);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,14 +87,20 @@
   border-radius: 5000px;
   min-height: calc(100vh + 500px);
   box-shadow: none;
+  background-color: #0b080c !important;
+  background-image: none !important;
+  border: none !important;
 }
 
 .loading-clicked .loading-button {
   overflow: visible;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.5s ease;
 }
 
 .loading-hover {
-  background-color: #a87cff;
+  background-color: #c2a4ff;
   width: 250px;
   height: 120px;
   position: absolute;
@@ -95,13 +108,13 @@
   left: var(--mouse-x);
   border-radius: 50%;
   transform: translate(-50%, -50%);
-  filter: blur(30px);
-  opacity: 1;
+  filter: blur(40px);
+  opacity: 0.45;
   transition: opacity 0.5s;
 }
 
 .loading-wrap:hover .loading-hover {
-  opacity: 1;
+  opacity: 0.7;
 }
 
 .loading-clicked:hover .loading-hover,
@@ -111,7 +124,7 @@
 
 .loading-content {
   position: relative;
-  background-color: #000;
+  background-color: transparent;
   width: 100%;
   overflow: hidden;
   transition: 0.6s;
@@ -136,16 +149,24 @@
   align-items: center;
   row-gap: 4px;
   text-align: center;
-  transition: 1s;
+  transition: opacity 0.5s ease;
   max-width: var(--Lsize);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-complete .loading-content2 {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .loading-subtext {
   font-size: 10px;
-  opacity: 0.5;
+  color: #c2a4ff;
+  opacity: 0.65;
   text-transform: none;
   letter-spacing: 1px;
-  font-weight: 400;
+  font-weight: 500;
   display: block;
 }
 
@@ -155,12 +176,13 @@
 }
 
 .loading-content span {
-  font-weight: 300;
+  font-weight: 400;
   position: absolute;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
-  opacity: 0.7;
+  color: #c2a4ff;
+  text-shadow: 0 0 10px rgba(194, 164, 255, 0.3);
 }
 
 .loading-box {
@@ -170,7 +192,8 @@
   transform: translate(100%, -50%);
   width: 15px;
   height: 25px;
-  background-color: #fff;
+  background-color: #c2a4ff;
+  box-shadow: 0 0 10px var(--accentColor);
   animation: blink 1s linear infinite;
 }
 
@@ -207,18 +230,63 @@
   width: 100%;
   max-width: var(--Lsize);
   top: 50%;
-  transition: 1s;
+  transition: max-width 0.8s ease, opacity 0.5s ease;
   left: 50px;
   z-index: 9;
   transform: translateY(-50%);
+  opacity: 1;
 }
 
 .loading-complete .loading-container {
   max-width: 0px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .loading-complete {
   cursor: pointer;
+  border-color: rgba(194, 164, 255, 0.55) !important;
+  background-color: rgba(19, 14, 24, 0.85) !important;
+  box-shadow: 
+    0 0 30px rgba(194, 164, 255, 0.35), 
+    inset 0 0 15px rgba(194, 164, 255, 0.2),
+    0 0 0 1px rgba(194, 164, 255, 0.05);
+  animation: welcomePulse 1.8s infinite ease-in-out;
+}
+
+.loading-complete::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(194, 164, 255, 0.05) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes welcomePulse {
+  0% {
+    box-shadow: 0 0 15px rgba(194, 164, 255, 0.25), inset 0 0 10px rgba(194, 164, 255, 0.15);
+    border-color: rgba(194, 164, 255, 0.35);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(194, 164, 255, 0.65), inset 0 0 20px rgba(194, 164, 255, 0.35);
+    border-color: rgba(194, 164, 255, 0.8);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(194, 164, 255, 0.25), inset 0 0 10px rgba(194, 164, 255, 0.15);
+    border-color: rgba(194, 164, 255, 0.35);
+    transform: scale(1);
+  }
 }
 
 .loading-header {
@@ -233,13 +301,14 @@
   left: 50%;
   transform: translate(-50%);
   top: 0;
-  color: var(--backgroundColor);
+  color: #eae5ec;
 }
 
 .loader-title {
   font-weight: 700;
   font-size: 14px;
   letter-spacing: 0.2px;
+  text-shadow: 0 0 10px rgba(194, 164, 255, 0.2);
 }
 
 @keyframes blink {
@@ -292,7 +361,7 @@
   position: relative;
   width: 10px;
   height: 60px;
-  background-color: #000;
+  background-color: rgba(255, 255, 255, 0.08);
   display: block;
 }
 
@@ -308,7 +377,8 @@
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  background-color: #a87cff;
+  background-color: #c2a4ff;
+  box-shadow: 0 0 8px rgba(194, 164, 255, 0.6);
   animation: ball25 7s infinite;
   transform: translateY(10px);
   animation-timing-function: cubic-bezier(0.3, 1.18, 0.63, 1.28);
@@ -320,7 +390,7 @@
   left: 0;
   width: 100%;
   transform: translateY(-50%);
-  color: var(--backgroundColor);
+  color: rgba(255, 255, 255, 0.015);
   font-size: 60px;
   font-weight: 600;
   text-transform: uppercase;
@@ -335,7 +405,7 @@
   content: '';
   width: 20px;
   height: 20px;
-  background-color: var(--backgroundColor);
+  background-color: rgba(255, 255, 255, 0.02);
   position: absolute;
   top: 50%;
   border-radius: 50px;
@@ -386,4 +456,81 @@
   .loader-title {
     font-size: 18px;
   }
+}
+
+/* CRT Screen Scanline Overlay on Loading Screen */
+.loading-screen::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(18, 16, 24, 0) 50%, 
+    rgba(0, 0, 0, 0.22) 50%
+  );
+  background-size: 100% 4px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.35;
+}
+
+/* Glowing Neon Title Flicker */
+.loader-title {
+  text-shadow: 0 0 8px rgba(194, 164, 255, 0.6), 0 0 20px rgba(194, 164, 255, 0.3);
+  animation: titleFlicker 3s infinite alternate;
+}
+
+@keyframes titleFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow: 0 0 8px rgba(194, 164, 255, 0.6), 0 0 20px rgba(194, 164, 255, 0.3);
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    opacity: 0.65;
+  }
+}
+
+/* Holographic Rotating HUD Radar Rings */
+.loading-hud-ring {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border: 1px dashed rgba(194, 164, 255, 0.12);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  animation: rotateHud 20s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 1;
+}
+
+.loading-hud-ring::after {
+  content: '';
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border: 1px dotted rgba(194, 164, 255, 0.08);
+  border-radius: 50%;
+  animation: rotateHudReverse 15s linear infinite;
+}
+
+.loading-clicked .loading-hud-ring {
+  opacity: 0;
+  transform: scale(0.75);
+}
+
+@keyframes rotateHud {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotateHudReverse {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
 }

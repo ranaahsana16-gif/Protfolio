@@ -169,3 +169,8 @@
 @media screen and (min-width: 500px) {
   .landing-circle2 { display: block; }
 }
+
+.dot-background-container {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
