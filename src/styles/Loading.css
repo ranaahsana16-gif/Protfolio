@@ -131,12 +131,22 @@
   width: var(--Lsize);
   overflow: hidden;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  column-gap: 10px;
+  row-gap: 4px;
   text-align: center;
   transition: 1s;
   max-width: var(--Lsize);
+}
+
+.loading-subtext {
+  font-size: 10px;
+  opacity: 0.5;
+  text-transform: none;
+  letter-spacing: 1px;
+  font-weight: 400;
+  display: block;
 }
 
 .loading-clicked .loading-content2 {

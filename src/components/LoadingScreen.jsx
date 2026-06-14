@@ -102,6 +102,7 @@ const LoadingScreen = ({ percent }) => {
             </div>
             <div className="loading-content2">
               <span>Welcome</span>
+              <span className="loading-subtext">Push here to enter</span>
             </div>
           </div>
         </div>
