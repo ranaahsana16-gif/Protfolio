@@ -3,6 +3,8 @@ import { TbFileDescription } from 'react-icons/tb'
 import { HoverLink } from './Navbar'
 import '../styles/Icons.css'
 
+const BASE = import.meta.env.BASE_URL
+
 const SocialIcons = () => {
   return (
     <div className="icons-section">
@@ -25,7 +27,7 @@ const SocialIcons = () => {
       </div>
       <a
         className="resume-button"
-        href="/resume.html"
+        href={`${BASE}resume.html`}
         target="_blank"
         rel="noreferrer"
       >

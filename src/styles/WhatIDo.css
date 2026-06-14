@@ -271,11 +271,10 @@
   .what-box:first-child { justify-content: left; }
   .what-box:last-child { height: 500px; }
   .what-box { width: 500px; max-width: calc(100% - 50px); margin: auto; }
-  .what-content { width: 100%; }
-  .what-box-in { margin-left: 0; height: 450px; }
+  .what-box-in { display: flex !important; margin-left: 0; height: 450px; }
+  .what-content { width: 100%; padding: 30px; }
   .what-content h5, .what-content-flex { opacity: 0; transition: 0.3s; }
   .what-noTouch:hover h5, .what-content-active h5, .what-noTouch:hover .what-content-flex, .what-content-active .what-content-flex { opacity: 1; }
-  .what-content { padding: 30px; }
   .what-content p { font-size: 11px; }
   .what-noTouch:hover, .what-content-active { padding: 10px 30px; }
   .what-tags { font-size: 11px; }

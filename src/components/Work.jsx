@@ -6,6 +6,8 @@ import '../styles/Work.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const BASE = import.meta.env.BASE_URL
+
 const WorkImage = ({ image, alt, link }) => {
   return (
     <div className="work-image">
@@ -15,7 +17,7 @@ const WorkImage = ({ image, alt, link }) => {
             <MdOutlineOpenInNew />
           </div>
         )}
-        <img src={image} alt={alt} />
+        <img src={`${BASE}${image}`} alt={alt} />
       </a>
     </div>
   )
@@ -78,7 +80,7 @@ const Work = () => {
               <p>Next.js, Firebase, Supabase, Sales Analytics, Real-Time Billing, Inventory Control</p>
             </div>
             <WorkImage
-              image="/images/nexpos_mockup.png"
+              image="images/nexpos_mockup.png"
               alt="NexPOS Dashboard Interface"
             />
           </div>
@@ -96,7 +98,7 @@ const Work = () => {
               <p>Flutter, Node.js, Custom Menu Manager, Kitchen Screens, Order Dispatch Pipeline</p>
             </div>
             <WorkImage
-              image="/images/food_ordering_mockup.png"
+              image="images/food_ordering_mockup.png"
               alt="Food Ordering Application interface"
             />
           </div>
@@ -114,7 +116,7 @@ const Work = () => {
               <p>Next.js, React, SEO Optimization, Conversion Funnel, Custom CRM/Email Forms</p>
             </div>
             <WorkImage
-              image="/images/client_website_mockup.png"
+              image="images/client_website_mockup.png"
               alt="Client website design and interface"
             />
           </div>
@@ -132,7 +134,7 @@ const Work = () => {
               <p>Full-Stack Development, Supabase, Workflow Builder, Business Dashboard, Automated Reports</p>
             </div>
             <WorkImage
-              image="/images/business_software_mockup.png"
+              image="images/business_software_mockup.png"
               alt="Business Software automation dashboard"
             />
           </div>

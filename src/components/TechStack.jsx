@@ -6,18 +6,20 @@ import { EffectComposer, N8AO } from '@react-three/postprocessing'
 import * as THREE from 'three'
 import '../styles/TechStack.css'
 
+const BASE = import.meta.env.BASE_URL
+
 const imagePaths = [
-  "/images/react2.webp",
-  "/images/next2.webp",
-  "/images/node2.webp",
-  "/images/express.webp",
-  "/images/mongo.webp",
-  "/images/mysql.webp",
-  "/images/typescript.webp",
-  "/images/javascript.webp",
-  "/images/photoshop.png",
-  "/images/illustrator.png",
-  "/images/figma.png"
+  "images/react2.webp",
+  "images/next2.webp",
+  "images/node2.webp",
+  "images/express.webp",
+  "images/mongo.webp",
+  "images/mysql.webp",
+  "images/typescript.webp",
+  "images/javascript.webp",
+  "images/photoshop.png",
+  "images/illustrator.png",
+  "images/figma.png"
 ];
 
 function FloatingSphere({ scale, material, isActive, vec = new THREE.Vector3() }) {
@@ -111,7 +113,7 @@ export default function TechStack() {
   const materials = useMemo(() => {
     const loader = new THREE.TextureLoader()
     return imagePaths.map(p => {
-      const tex = loader.load(p)
+      const tex = loader.load(`${BASE}${p}`)
       return new THREE.MeshPhysicalMaterial({
         map: tex,
         emissive: "#ffffff",
@@ -126,10 +128,11 @@ export default function TechStack() {
 
   const sphereData = useMemo(() => {
     const scales = [0.7, 1, 0.8, 1, 1]
-    return [...Array(30)].map(() => ({
-      scale: scales[Math.floor(Math.random() * scales.length)]
+    return [...Array(15)].map((_, idx) => ({
+      scale: scales[Math.floor(Math.random() * scales.length)],
+      materialIdx: idx % materials.length
     }))
-  }, [])
+  }, [materials.length])
 
   return (
     <div className="techstack" id="techstack">
@@ -159,13 +162,13 @@ export default function TechStack() {
             <FloatingSphere
               key={idx}
               scale={d.scale}
-              material={materials[Math.floor(Math.random() * materials.length)]}
+              material={materials[d.materialIdx]}
               isActive={isActive}
             />
           ))}
         </Physics>
         <Environment
-          files="/models/char_enviorment.hdr"
+          files={`${BASE}models/char_enviorment.hdr`}
           environmentIntensity={0.5}
           environmentRotation={[0, 4, 2]}
         />
