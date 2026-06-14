@@ -58,7 +58,7 @@ const LoadingScreen = ({ percent }) => {
   }
 
   return (
-    <div className={`loading-overlay ${fadeOut ? 'loading-screen-out' : ''}`}>
+    <div className={`loading-screen ${fadeOut ? 'loading-screen-out' : ''}`}>
       <div className="loading-header">
         <a href="/#" className="loader-title" data-cursor="disable">
           RANA AHSAN
