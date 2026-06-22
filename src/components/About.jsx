@@ -20,7 +20,6 @@ const About = () => {
   "company": "TillNex",
   "skills": ["Full-Stack", "Flutter", "UI/UX"],
   "achievements": [
-    "3x Debating Champ",
     "POS & SaaS Builder"
   ],
   "communication": "Excellent"
@@ -48,16 +47,13 @@ const About = () => {
           <div className="about-info-col">
             <h4>Communication & Languages</h4>
             <ul>
-              <li>English (Professional)</li>
-              <li>Urdu (Native)</li>
-              <li>Excellent Communication Skills</li>
-              <li>Public Speaking & Persuasion</li>
+              <li>English & Urdu (Fluent & Bilingual)</li>
+              <li>French & German (Conversational)</li>
             </ul>
           </div>
           <div className="about-info-col">
             <h4>Achievements</h4>
             <ul>
-              <li>Won 3 Debating Competitions</li>
               <li>Founder & CEO of TillNex</li>
             </ul>
           </div>
