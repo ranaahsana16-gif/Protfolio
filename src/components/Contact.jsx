@@ -20,8 +20,8 @@ const Contact = () => {
             </p>
             <h4>Phone / WhatsApp</h4>
             <p>
-              <a href="https://wa.me/923395121676" target="_blank" data-cursor="disable" rel="noreferrer">
-                +92 339 5121676
+              <a href="https://wa.me/923085121676" target="_blank" data-cursor="disable" rel="noreferrer">
+                +92 308 5121676
               </a>
             </p>
             <h4>Location</h4>

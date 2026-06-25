@@ -20,7 +20,7 @@ const SocialIcons = () => {
           </a>
         </span>
         <span>
-          <a href="https://wa.me/923395121676" target="_blank" rel="noreferrer">
+          <a href="https://wa.me/923085121676" target="_blank" rel="noreferrer">
             <FaWhatsapp />
           </a>
         </span>
